@@ -1,0 +1,9 @@
+[main]
+host = https://www.transifex.com
+
+[senaite-reflex.senaite]
+file_filter = <lang>/LC_MESSAGES/senaite.reflex.po
+host = https://www.transifex.com
+source_file = senaite.reflex.pot
+source_lang = en
+type = PO

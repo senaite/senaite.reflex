@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<layers>
+  <layer name="senaite.reflex"
+         interface="senaite.reflex.interfaces.ILayer" />
+</layers>
+
