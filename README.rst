@@ -1,9 +1,9 @@
 .. image:: https://raw.githubusercontent.com/senaite/senaite.reflex/master/static/logo.png
    :alt: senaite.reflex
-   :height: 64
+   :width: 500px
    :align: center
 
-- **SENAITE.REFLEX**: *Reflex Testing machinery for SENAITE*
+— **SENAITE.REFLEX**: *Reflex Testing machinery for SENAITE*
 
 .. image:: https://img.shields.io/pypi/v/senaite.reflex.svg?style=flat-square
    :target: https://pypi.python.org/pypi/senaite.reflex
