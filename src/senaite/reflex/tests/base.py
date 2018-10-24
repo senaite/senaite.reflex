@@ -16,6 +16,7 @@ from plone.app.testing import login
 from plone.app.testing import logout
 from plone.app.testing import setRoles
 from plone.testing import z2
+from senaite.reflex.config import PRODUCT_NAME
 
 
 class SimpleTestLayer(PloneSandboxLayer):
@@ -36,7 +37,7 @@ class SimpleTestLayer(PloneSandboxLayer):
         self.loadZCML(package=senaite.reflex)
 
         # Install product and call its initialize() function
-        z2.installProduct(app, "senaite.reflex")
+        z2.installProduct(app, PRODUCT_NAME)
 
     def setUpPloneSite(self, portal):
         super(SimpleTestLayer, self).setUpPloneSite(portal)

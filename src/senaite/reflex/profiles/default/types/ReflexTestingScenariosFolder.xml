@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<object name="ReflexTestingScenariosFolder"
+        meta_type="Factory-based Type Information with dynamic views"
+        xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+        i18n:domain="senaite.reflex">
+  <property name="title" i18n:translate="">Reflex Testing Scenarios</property>
+  <property name="content_icon">++resource++senaite.reflex.static/img/reflextest.png</property>
+  <property name="content_meta_type">ReflexTestingScenariosFolder</property>
+  <property name="product">senaite.reflex</property>
+  <property name="factory">addReflexTestingScenariosFolder</property>
+  <property name="global_allow">False</property>
+  <property name="filter_content_types">True</property>
+  <property name="allowed_content_types">
+    <element value="ReflexTestingScenario"/>
+  </property>
+  <property name="allow_discussion">False</property>
+  <property name="default_view_fallback">False</property>
+
+  <alias from="(Default)" to="folder_view"/>
+  <alias from="view" to="folder_view"/>
+  <alias from="edit" to="base_edit"/>
+
+</object>

@@ -4,6 +4,7 @@
 #
 # Copyright 2018 by it's authors.
 
+from senaite.reflex.config import PRODUCT_NAME
 from senaite.reflex.tests.base import SimpleTestCase
 
 
@@ -17,7 +18,7 @@ class TestSetup(SimpleTestCase):
 
     def test_is_senaite_reflex_installed(self):
         qi = self.portal.portal_quickinstaller
-        self.assertTrue(qi.isProductInstalled("senaite.reflex"))
+        self.assertTrue(qi.isProductInstalled(PRODUCT_NAME))
 
 
 def test_suite():

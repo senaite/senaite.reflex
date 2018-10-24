@@ -1,0 +1,13 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    i18n_domain="senaite.reflex">
+
+  <browser:page
+      for="senaite.reflex.interfaces.IReflexTestingScenariosFolder"
+      name="folder_view"
+      class=".reflextesting_scenarios.ReflexTestingScenariosListing"
+      permission="bika.lims.ManageBika"
+      layer="senaite.reflex.interfaces.ILayer" />
+
+</configure>

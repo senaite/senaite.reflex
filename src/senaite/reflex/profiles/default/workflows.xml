@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<object name="portal_workflow" meta_type="Plone Workflow Tool">
+  <property name="title" purge="False">Workflow custom definitions</property>
+  <bindings>
+    <type type_id="ReflexTestingScenariosFolder"/>
+    <type type_id="ReflexTestingScenario">
+      <bound-workflow workflow_id="bika_one_state_workflow"/>
+      <bound-workflow workflow_id="bika_inactive_workflow"/>
+    </type>
+  </bindings>
+</object>
