@@ -1,3 +1,9 @@
+# -*- coding: utf-8 -*-
+#
+# This file is part of SENAITE.REFLEX
+#
+# Copyright 2018 by it's authors.
+
 import collections
 
 from bika.lims.browser.bika_listing import BikaListingView

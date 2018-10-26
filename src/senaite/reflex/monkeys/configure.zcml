@@ -1,0 +1,20 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:monkey="http://namespaces.plone.org/monkey"
+    i18n_domain="senaite.reflex">
+
+  <monkey:patch
+    description=""
+    class="bika.lims.content.abstractroutineanalysis.AbstractRoutineAnalysis"
+    original="_reflex_rule_process"
+    replacement=".content.abstractroutineanalysis._reflex_rule_process"
+  />
+
+  <monkey:patch
+    description=""
+    class="bika.lims.content.reflexrule"
+    original="doActionToAnalysis"
+    replacement=".content.reflexrule.doActionToAnalysis"
+  />
+
+</configure>
