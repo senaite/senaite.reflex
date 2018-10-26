@@ -31,7 +31,6 @@ def doActionToAnalysis(source_analysis, action):
     state = api.get_review_status(source_analysis)
     action_id  = action.get('action', '')
     if action_id == 'setvisibility':
-        action_rule_name = 'Visibility set'
         target_id = action.get('setvisibilityof', '')
         if target_id == "original":
             analysis = source_analysis
@@ -47,17 +46,14 @@ def doActionToAnalysis(source_analysis, action):
         analysis_request = source_analysis.getRequest()
         analysis = analysis_request.getAnalyses(sort_on="created")[-1]
         analysis = api.get_object(analysis)
-        action_rule_name = 'Repeated'
         analysis.setResult('')
 
     elif action_id == 'duplicate' or state == 'retracted':
         analysis = duplicateAnalysis(source_analysis)
-        action_rule_name = 'Duplicated'
         analysis.setResult('')
 
     elif action_id == 'setresult':
         target = action.get('setresulton', '')
-        action_rule_name = 'Result set'
         result_value = action.get('setresultdiscrete', '') or \
                        action['setresultvalue']
 
