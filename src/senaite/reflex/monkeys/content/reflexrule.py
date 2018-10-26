@@ -12,6 +12,7 @@ from bika.lims.interfaces.analysis import IRequestAnalysis
 from bika.lims.utils.analysis import duplicateAnalysis
 from bika.lims.workflow import doActionFor
 from senaite.reflex import logger
+from senaite.reflex import senaiteMessageFactory as _
 
 
 def doActionToAnalysis(source_analysis, action):
@@ -96,16 +97,47 @@ def doActionToAnalysis(source_analysis, action):
     analysis.setReflexRuleLocalID(action.get('an_result_id', ''))
 
     # Setting the remarks to base analysis
-    time = datetime.now().strftime('%Y-%m-%d %H:%M')
-    rule_num = action.get('rulenumber', 0)
-    rule_name = action.get('rulename', '')
-    base_remark = "Reflex rule number %s of '%s' applied at %s." % \
-        (rule_num, rule_name, time)
-    base_remark = source_analysis.getRemarks() + base_remark + '||'
-    source_analysis.setRemarks(base_remark)
-    # Setting the remarks to new analysis
-    analysis_remark = "%s due to reflex rule number %s of '%s' at %s" % \
-        (action_rule_name, rule_num, rule_name, time)
-    analysis_remark = analysis.getRemarks() + analysis_remark + '||'
-    analysis.setRemarks(analysis_remark)
+    remarks = get_remarks(action, analysis)
+    analysis.setRemarks(remarks)
+
     return analysis
+
+
+def get_remarks(action, output_analysis):
+    action_name = action.get('action', '')
+    if not action_name:
+        return
+    visibility = action.get('showinreport', '')
+    visibility = visibility and _(visibility) or ''
+    set_visibility = _("Change visibility of {} to {}").format(
+        output_analysis.Title(), visibility)
+    set_result = _("Set result of {} to {}").format(
+        output_analysis.Title(), output_analysis.getFormattedResult())
+
+    destination_map = {
+        "current": _("{action_name} {analysis_name} in current worksheet"),
+        "to_another": _("{action_name} {analysis_name} in last open worksheet"),
+        "create_another":  _("{action_name} {analysis_name} in a new worksheet"),
+        "no_ws": _("{action_name} {analysis_name}"),
+    }
+    analysis_name = output_analysis.Title()
+    destination = action.get('otherWS', '')
+    actions = {
+        'repeat': destination_map.get(destination, '')
+            .format(action_name=_("Repeat"), analysis_name=analysis_name),
+        'duplicate': destination_map.get(destination, '')
+            .format(action_name=_("Duplicate"), analysis_name=analysis_name),
+        'setvisibility': set_visibility.strip(),
+        'setresult': set_result.strip()
+    }
+
+    rule_name = "{} '{}'".format(_("Reflex Test"), action.get('rulename', ''))
+    remarks = "[{timestamp}] {rule_name} #{rule_number}: {action}".format(
+        timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+        rule_name = rule_name,
+        rule_number = action.get('rulenumber', '0'),
+        action = actions.get(action_name, ''))
+
+    remarks_output = [output_analysis.getRemarks(), remarks]
+    remarks_output = filter(lambda rem: rem, remarks_output)
+    return '; '.join(remarks_output)
