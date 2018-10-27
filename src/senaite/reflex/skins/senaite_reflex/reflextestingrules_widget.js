@@ -677,6 +677,7 @@ jQuery(function($){
             $(action_define_div).css('display', 'inline');
             $(action_div).find('div.action_define_visibility').hide();
             $(action_div).find('div.to_other_worksheet').hide();
+            $(action_div).find('div.action_service_name').hide();
             $(action_div)
                 .find('div.to_other_worksheet')
                 .find('select[id^="ReflexRules-otherWS-"]').find(":selected")
@@ -706,6 +707,7 @@ jQuery(function($){
         else if(selection=="setvisibility"){
             // Hide the temporary ID for this analysis
             $(action_div).find('input[id^=ReflexRules-an_result_id-]').hide();
+            $(action_div).find('div.action_service_name').hide();
             // Hide fields of the other actions
             $(action_div).find('div.action_define_result').hide();
             $(action_div).find('div.to_other_worksheet').hide();$(action_div)
@@ -718,11 +720,31 @@ jQuery(function($){
                 .first().val();
             update_analysis_selectors();
         }
+        else if(selection=="new_analysis") {
+            // Show the temporary ID of the analysis to be generated
+            $(action_div).find('input[id^=ReflexRules-an_result_id-]').show();
+            $(action_div).find('div.action_service_name').css('display', 'inline');
+            $(action_div).find('div.to_other_worksheet').css('display', 'inline');
+            $(action_div).find('div.action_define_result').hide();
+            $(action_div).find('div.action_define_visibility').hide();
+            if (!first_setup){
+                local_id = new_localid(selection);
+                $(action_div).find("input[id^='ReflexRules-an_result_id-']")
+                    .first().val(local_id);
+            }
+            else{
+                local_id = $(action_div).find("input[id^='ReflexRules-an_result_id-']")
+                    .first().val();
+            }
+            update_analysis_selectors();
+
+        }
         else{
             // Show the temporary ID of the analysis to be generated
             $(action_div).find('input[id^=ReflexRules-an_result_id-]').show();
             // Hide the options-set
             $(action_div).find('div.to_other_worksheet').css('display', 'inline');
+            $(action_div).find('div.action_service_name').hide();
             $(action_div).find('div.action_define_result').hide();
             $(action_div).find('div.action_define_visibility').hide();
             if (!first_setup){
@@ -815,6 +837,7 @@ jQuery(function($){
         var rawprefix = prefix == 'duplicate' ? 'dup' : prefix;
         rawprefix = rawprefix == 'repeat' ? 'rep' : rawprefix;
         rawprefix = rawprefix == 'setresult' ? 'set' : rawprefix;
+        rawprefix = rawprefix == 'new_analysis' ? 'new' : rawprefix;
         var maxnum = 0;
         $('.derivative-id').each(function(index, element) {
             var valid = $(this).val();

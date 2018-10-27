@@ -13,6 +13,8 @@ from Products.CMFCore.utils import getToolByName
 from bika.lims.browser.widgets import RecordsWidget
 from bika.lims.utils import getUsers
 from senaite.reflex import senaiteMessageFactory as _
+from bika.lims import api
+
 
 class ReflexTestingRulesWidget(RecordsWidget):
     _properties = RecordsWidget._properties.copy()
@@ -263,6 +265,9 @@ class ReflexTestingRulesWidget(RecordsWidget):
             # Getting the analysis to show or hide in report
             setvisibilityof_key = 'setvisibilityof-'+str(a_count)
             setvisibilityof = raw_set.get(setvisibilityof_key, '')
+            # Get the uid of the new analysis to be created
+            new_analysis_key = 'new_analysis-'+str(a_count)
+            new_analysis = raw_set.get(new_analysis_key, '')
             # Building the action dict
             action_dict = {
                 'action': raw_set[key],
@@ -276,6 +281,7 @@ class ReflexTestingRulesWidget(RecordsWidget):
                 'an_result_id': local_id,
                 'showinreport': showinreport,
                 'setvisibilityof': setvisibilityof,
+                'new_analysis': new_analysis,
                 }
             # Saves the action as a new dict inside the actions list
             actions_dicts_l.append(action_dict)
@@ -430,7 +436,8 @@ class ReflexTestingRulesWidget(RecordsWidget):
             ('repeat', _('Repeat')),
             ('duplicate', _('Duplicate')),
             ('setresult', _('Set result')),
-            ('setvisibility', _('Set Visibility'))])
+            ('setvisibility', _('Set Visibility')),
+            ('new_analysis', _('New analysis'))])
 
     def getShowInRepVoc(self):
         """
@@ -457,6 +464,16 @@ class ReflexTestingRulesWidget(RecordsWidget):
         return DisplayList([
             ('original', 'Original analysis'),
             ('new', 'New analysis')])
+
+    def getServicesDisplayList(self):
+        """Returns the available analysis services
+        """
+        query = dict(portal_type="AnalysisService", inactive_state="active",
+                     sort_on="title", sort_order="ascending")
+        items = api.search(query, "bika_setup_catalog")
+        items = map(lambda brain: (brain.UID, brain.Title), items)
+        return DisplayList(list(items))
+
 
     def getTriggerVoc(self):
         """
@@ -518,10 +535,11 @@ class ReflexTestingRulesWidget(RecordsWidget):
             value = rules_list[idx].get(element, '')
             if element == 'actions' and value == '':
                 return [{'action': '', 'act_row_idx': '0',
-                        'otherWS': 'current', 'analyst': '',
-                        'setresulton': '', 'setresultdiscrete': '',
-                        'worksheettemplate': '',
-                        'setresultvalue': '', 'an_result_id': ''}, ]
+                         'otherWS': 'current', 'analyst': '',
+                         'setresulton': '', 'setresultdiscrete': '',
+                         'worksheettemplate': '',
+                         'setresultvalue': '', 'an_result_id': '',
+                         'new_analysis': ''}, ]
             elif element == 'conditions' and value == '':
                 return [{'analysisservice': '', 'cond_row_idx': '0',
                         'range0': '', 'range1': '',
@@ -530,10 +548,11 @@ class ReflexTestingRulesWidget(RecordsWidget):
                 return value
         if element == 'actions':
             return [{'action': '', 'act_row_idx': '0',
-                    'otherWS': 'current', 'analyst': '',
-                    'worksheettemplate': '',
-                    'setresulton': '', 'setresultdiscrete': '',
-                    'setresultvalue': '', 'an_result_id': ''}, ]
+                     'otherWS': 'current', 'analyst': '',
+                     'worksheettemplate': '',
+                     'setresulton': '', 'setresultdiscrete': '',
+                     'setresultvalue': '', 'an_result_id': '',
+                     'new_analysis': ''}, ]
         elif element == 'conditions':
             return [{'analysisservice': '', 'cond_row_idx': '0',
                     'range0': '', 'range1': '',

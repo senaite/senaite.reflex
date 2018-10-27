@@ -8,8 +8,10 @@ from datetime import datetime
 
 from bika.lims import api
 from bika.lims.content.reflexrule import _fetch_analysis_for_local_id
+from bika.lims.interfaces import IAnalysisService
 from bika.lims.interfaces.analysis import IRequestAnalysis
-from bika.lims.utils.analysis import duplicateAnalysis
+from bika.lims.utils import changeWorkflowState
+from bika.lims.utils.analysis import duplicateAnalysis, create_analysis
 from bika.lims.workflow import doActionFor
 from senaite.reflex import logger
 from senaite.reflex import senaiteMessageFactory as _
@@ -30,7 +32,23 @@ def doActionToAnalysis(source_analysis, action):
 
     state = api.get_review_status(source_analysis)
     action_id  = action.get('action', '')
-    if action_id == 'setvisibility':
+
+    if action_id == "new_analysis":
+        # Create a new analysis (different from the original)
+        service_uid = action.get("new_analysis", "")
+        if not api.is_uid(service_uid):
+            logger.error("Not a valid UID: {}".format(service_uid))
+            return None
+        service = api.get_object_by_uid(service_uid, None)
+        if not service or not IAnalysisService.providedBy(service):
+            logger.error("No valid service for UID {}".format(service_uid))
+            return None
+
+        analysis = create_analysis(source_analysis.aq_parent, service)
+        analysis.setSamplePartition(source_analysis.getSamplePartition())
+        changeWorkflowState(analysis, "bika_analysis_workflow",
+                            "sample_received")
+    elif action_id == 'setvisibility':
         target_id = action.get('setvisibilityof', '')
         if target_id == "original":
             analysis = source_analysis
@@ -70,6 +88,7 @@ def doActionToAnalysis(source_analysis, action):
         else:
             logger.error("Unknown 'setresulton' directive: {}".format(target))
             return None
+
     else:
         logger.error("Unknown Reflex Rule action: {}".format(action_id))
         return None
@@ -123,8 +142,10 @@ def get_remarks(action, output_analysis):
             .format(action_name=_("Repeat"), analysis_name=analysis_name),
         'duplicate': destination_map.get(destination, '')
             .format(action_name=_("Duplicate"), analysis_name=analysis_name),
+        'new_analysis': destination_map.get(destination, '')
+            .format(action_name=_("Add new"), analysis_name=analysis_name),
         'setvisibility': set_visibility.strip(),
-        'setresult': set_result.strip()
+        'setresult': set_result.strip(),
     }
 
     rule_name = "{} '{}'".format(_("Reflex Test"), action.get('rulename', ''))
