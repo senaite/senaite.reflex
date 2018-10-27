@@ -57,6 +57,9 @@ def post_install(portal_setup):
     # Migrate old reflex rules from senaite.core
     migrate_core_reflex_rules(portal)
 
+    # Disable core's reflex rules folder
+    disable_core_reflex_rules_folder(portal)
+
     logger.info("SENAITE REFLEX install handler [DONE]")
 
 
@@ -193,3 +196,29 @@ def migrate_core_reflex_rules(portal):
 
         # Remove the old reflex rule
         reflex_rule.aq_parent.manage_delObjects([reflex_rule.getId()])
+
+
+def disable_core_reflex_rules_folder(portal):
+    """Disable the link to old reflex rules folder from navigation bar and from
+    the control panel
+    """
+    logger.info("*** Disable core reflex rules ***")
+    # Hide from navbar
+    folder = portal.bika_setup.bika_reflexrulefolder
+    folder.setExcludeFromNav(True)
+    folder.reindexObject()
+
+    def get_action_index(action_id):
+        for n, action in enumerate(cp.listActions()):
+            if action.getId() == action_id:
+                return n
+        return -1
+
+    cp = api.get_tool("portal_controlpanel")
+    action_index = get_action_index('bika_reflexrulefolder')
+
+    if (action_index != -1):
+        actions = cp._cloneActions()
+        del actions[action_index]
+        cp._actions = tuple(actions)
+        cp._p_changed = 1
