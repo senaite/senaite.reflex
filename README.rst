@@ -91,5 +91,15 @@ The following versions are required for SENAITE REFLEX:
 -  senaite.lims >= 1.2.0
 
 
+Screenshots
+-----------
+
+.. image:: https://raw.githubusercontent.com/senaite/senaite.reflex/master/static/reflex_scenario.png
+   :alt: Example of a Relex Testing scenario
+   :width: 760px
+   :align: center
+
+
+
 .. _Plone 4: https://docs.plone.org/4/en/manage/installing/index.html
 .. _senaite.lims: https://github.com/senaite/senaite.lims#installation
