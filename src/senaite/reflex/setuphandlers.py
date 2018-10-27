@@ -4,7 +4,10 @@
 #
 # Copyright 2018 by it's authors.
 
+from Products.CMFPlone.utils import _createObjectByType
 from bika.lims import api
+from bika.lims.idserver import renameAfterCreation
+from bika.lims.utils import tmpID
 from senaite.reflex import logger
 
 CONTROL_PANELS = [
@@ -50,6 +53,9 @@ def post_install(portal_setup):
 
     # Setup new content types
     setup_control_panels(portal)
+
+    # Migrate old reflex rules from senaite.core
+    migrate_core_reflex_rules(portal)
 
     logger.info("SENAITE REFLEX install handler [DONE]")
 
@@ -171,3 +177,19 @@ def setup_control_panels(portal):
         # reindex the object to render it properly in the navigation portlet
         panel.reindexObject()
 
+
+def migrate_core_reflex_rules(portal):
+    """Migrates the existing reflex rules from core to the types of this add-on
+    """
+    logger.info("*** Migrating Reflex Rules ***")
+    folder = portal.bika_setup.reflextesting_scenarios
+    for reflex_rule in portal.bika_setup.bika_reflexrulefolder.objectValues():
+        obj = _createObjectByType("ReflexTestingScenario", folder, tmpID())
+        obj.edit(title=reflex_rule.Title(),
+                 Method=reflex_rule.getMethod(),
+                 ReflexRules=reflex_rule.getReflexRules())
+        obj.unmarkCreationFlag()
+        renameAfterCreation(obj)
+
+        # Remove the old reflex rule
+        reflex_rule.aq_parent.manage_delObjects([reflex_rule.getId()])
