@@ -284,7 +284,7 @@
                             </select>
                         </div>
                         <div class="action_define_result inline">
-                            <span i18n:translate="" class="reflex_rule_text">to</span>
+                            <span i18n:translate="" class="reflex_rule_text">of</span>
                             <!-- Define to which analysis the result should be
                             set, to the original one or the next one
                             (repeating the analysis) -->
@@ -305,9 +305,7 @@
                                         selected python:'selected' if option==action_row.get('setresulton', '') else None"
                                     i18n:translate=""/>
                             </select>
-                            <span i18n:translate="" class="reflex_rule_text">
-                                as
-                            </span>
+                            <span i18n:translate="" class="reflex_rule_text">to</span>
                             <!-- Define the value to the original/next analysis
                             when discrete values are needed -->
                             <select
@@ -333,7 +331,7 @@
                                     i18n:domain="python:i18n_domain">
                         </div>
                         <div class="action_define_visibility inline">
-                            <span i18n:translate="" class="reflex_rule_text"> of </span>
+                            <span i18n:translate="" class="reflex_rule_text">of</span>
                             <!-- Define to which analysis to show or to hide
                             (repeating the analysis) -->
                             <select
@@ -347,7 +345,7 @@
                                 <option
                                     i18n:translate=""/>
                             </select>
-                            <span i18n:translate="" class="reflex_rule_text">as</span>
+                            <span i18n:translate="" class="reflex_rule_text">to</span>
                         </div>
                         <div class="to_other_worksheet inline">
                             <!-- Other worksheet selector -->
