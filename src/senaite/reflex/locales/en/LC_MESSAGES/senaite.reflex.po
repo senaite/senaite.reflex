@@ -1,0 +1,198 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2018-10-28 19:15+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Language-Code: en\n"
+"Language-Name: English\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: DOMAIN\n"
+
+#: senaite/reflex/skins/senaite_reflex/reflextestingrules_widget.pt:198
+msgid "Actions"
+msgstr ""
+
+#: senaite/reflex/browser/views.py:55
+msgid "Active"
+msgstr ""
+
+#: senaite/reflex/browser/views.py:30
+msgid "Add"
+msgstr ""
+
+#: senaite/reflex/skins/senaite_reflex/reflextestingrules_widget.pt:435
+msgid "Add action"
+msgstr ""
+
+#: senaite/reflex/skins/senaite_reflex/reflextestingrules_widget.pt:468
+msgid "Add derivative rule"
+msgstr ""
+
+#: senaite/reflex/monkeys/content/reflexrule.py:146
+msgid "Add new"
+msgstr ""
+
+#: senaite/reflex/browser/views.py:67
+msgid "All"
+msgstr ""
+
+#: senaite/reflex/skins/senaite_reflex/reflextestingrules_widget.pt:202
+msgid "Apply the actions below"
+msgstr ""
+
+#: senaite/reflex/monkeys/content/reflexrule.py:127
+msgid "Change visibility of {} to {}"
+msgstr ""
+
+#: senaite/reflex/skins/senaite_reflex/reflextestingrules_widget.pt:102
+msgid "Conditions"
+msgstr ""
+
+#: senaite/reflex/browser/fields.py:26
+msgid "Define the sets of actions"
+msgstr ""
+
+#: senaite/reflex/skins/senaite_reflex/reflextestingrules_widget.pt:442
+msgid "Derivative rules"
+msgstr ""
+
+#: senaite/reflex/browser/views.py:47
+msgid "Description"
+msgstr ""
+
+#: senaite/reflex/browser/views.py:61
+msgid "Dormant"
+msgstr ""
+
+#: senaite/reflex/browser/widgets.py:437
+#: senaite/reflex/monkeys/content/reflexrule.py:144
+msgid "Duplicate"
+msgstr ""
+
+#: senaite/reflex/browser/widgets.py:449
+msgid "Hide In Report"
+msgstr ""
+
+#: senaite/reflex/browser/fields.py:225
+msgid "If range values are empty, discreteresult must contain a value, and if discreteresult has a value, ranges must be empty. But ranges or discreteresult must conatin a value.The given values are: discreteresult: %s, range0: %s, range1: %s"
+msgstr ""
+
+#: senaite/reflex/content/ReflexTestingScenario.py:44
+msgid "Method"
+msgstr ""
+
+#: senaite/reflex/browser/views.py:44
+msgid "Name"
+msgstr ""
+
+#: senaite/reflex/browser/widgets.py:440
+msgid "New analysis"
+msgstr ""
+
+#: senaite/reflex/monkeys/content/reflexrule.py:151
+msgid "Reflex Test"
+msgstr ""
+
+#: senaite/reflex/profiles/default/types/ReflexTestingScenario.xml
+msgid "Reflex Testing Scenario"
+msgstr ""
+
+#: senaite/reflex/browser/views.py:36
+#: senaite/reflex/profiles/default/types/ReflexTestingScenariosFolder.xml
+msgid "Reflex Testing Scenarios"
+msgstr ""
+
+#: senaite/reflex/configure.zcml:40
+msgid "Reflex Testing machinery for SENAITE"
+msgstr ""
+
+#: senaite/reflex/browser/widgets.py:436
+#: senaite/reflex/monkeys/content/reflexrule.py:142
+msgid "Repeat"
+msgstr ""
+
+#: senaite/reflex/configure.zcml:40
+msgid "SENAITE REFLEX"
+msgstr ""
+
+#: senaite/reflex/skins/senaite_reflex/reflextestingrules_widget.pt:391
+msgid "Select the analyst"
+msgstr ""
+
+#: senaite/reflex/content/ReflexTestingScenario.py:46
+msgid "Select the method which the rules for the analysis service will be bound to."
+msgstr ""
+
+#: senaite/reflex/browser/widgets.py:439
+msgid "Set Visibility"
+msgstr ""
+
+#: senaite/reflex/profiles/default/types/ReflexTestingScenario.xml
+msgid "Set of rules for the automatic creation of subsequent tests when certain criteria are met"
+msgstr ""
+
+#: senaite/reflex/browser/widgets.py:438
+msgid "Set result"
+msgstr ""
+
+#: senaite/reflex/monkeys/content/reflexrule.py:129
+msgid "Set result of {} to {}"
+msgstr ""
+
+#: senaite/reflex/browser/widgets.py:448
+msgid "Show in Report"
+msgstr ""
+
+#: senaite/reflex/skins/senaite_reflex/reflextestingrules_widget.pt:114
+msgid "The analysis is"
+msgstr ""
+
+#: senaite/reflex/skins/senaite_reflex/reflextestingrules_widget.pt:140
+msgid "The result of the analysis between"
+msgstr ""
+
+#: senaite/reflex/skins/senaite_reflex/reflextestingrules_widget.pt:165
+msgid "The result of the analysis is"
+msgstr ""
+
+#: senaite/reflex/browser/widgets.py:447
+msgid "Visibility (default)"
+msgstr ""
+
+#: senaite/reflex/skins/senaite_reflex/reflextestingrules_widget.pt:150
+msgid "and"
+msgstr ""
+
+#: senaite/reflex/skins/senaite_reflex/reflextestingrules_widget.pt:371
+msgid "by using the Worksheet Template"
+msgstr ""
+
+#: senaite/reflex/skins/senaite_reflex/reflextestingrules_widget.pt:264
+msgid "of"
+msgstr ""
+
+#: senaite/reflex/skins/senaite_reflex/reflextestingrules_widget.pt:308
+msgid "to"
+msgstr ""
+
+#: senaite/reflex/monkeys/content/reflexrule.py:136
+msgid "{action_name} {analysis_name}"
+msgstr ""
+
+#: senaite/reflex/monkeys/content/reflexrule.py:135
+msgid "{action_name} {analysis_name} in a new worksheet"
+msgstr ""
+
+#: senaite/reflex/monkeys/content/reflexrule.py:133
+msgid "{action_name} {analysis_name} in current worksheet"
+msgstr ""
+
+#: senaite/reflex/monkeys/content/reflexrule.py:134
+msgid "{action_name} {analysis_name} in last open worksheet"
+msgstr ""
