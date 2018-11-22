@@ -366,40 +366,34 @@ class ReflexTestingRulesWidget(RecordsWidget):
         }
         """
         relations = collections.OrderedDict()
+
+        # Get all worksheet templates
+        query = dict(portal_type="WorksheetTemplate", inactive_state="active",
+                     sort_on="sortable_title", sort_order="ascending")
+        ws_templates = api.search(query, "bika_setup_catalog")
+
+        # Get all services
+        query = dict(portal_type="AnalysisService",  inactive_state="active",
+                     sort_on="title", sort_order="ascending")
+        services = map(api.get_object, api.search(query, "bika_setup_catalog"))
+
         # Getting all the methods from the system
-        pc = getToolByName(self, 'portal_catalog')
-        methods = [obj.getObject() for obj in pc(
-                    portal_type='Method',
-                    inactive_state='active')]
-        bsc = getToolByName(self, 'bika_setup_catalog')
-        for method in methods:
-            # Get the analysis services related to each method
-            an_servs_brains = bsc(
-                portal_type='AnalysisService',
-                sort_on='title',
-                sort_order='ascending',
-                getMethodUIDs={
-                    "query": method.UID(),
-                    "operator": "or"
-                })
+        query = dict(portal_type="Method", inactive_state="active",
+                     sort_on="sortable_title", sort_order="ascending")
+        for method in api.search(query, "bika_setup_catalog"):
+            method = api.get_object(method)
+            method_uid = api.get_uid(method)
+            method_services = filter(lambda s: method_uid in s.getMethodUIDs(),
+                                     services)
             analysiservices = collections.OrderedDict()
-            for analysiservice in an_servs_brains:
-                analysiservice = analysiservice.getObject()
+            for analysiservice in method_services:
                 # Getting the worksheet templates that could be used with the
                 # analysis, those worksheet templates are the ones without
                 # method and the ones with a method shared with the
                 # analysis service.
-                service_methods_uid = analysiservice.getAvailableMethodUIDs()
-                query_dict = {
-                    'portal_type': 'WorksheetTemplate',
-                    'inactive_state': 'active',
-                    'sort_on': 'sortable_title',
-                    'getMethodUID': {
-                        "query": service_methods_uid + [''],
-                        "operator": "or"
-                    }
-                }
-                wst_brains = bsc(query_dict)
+                smuids = analysiservice.getMethodUIDs()
+                wst_brains = filter(lambda wst: api.get_uid(wst) in smuids,
+                                    ws_templates)
                 analysiservices[analysiservice.UID()] = {
                     'as_id': analysiservice.getId(),
                     'as_title': analysiservice.Title(),
