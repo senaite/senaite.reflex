@@ -4,6 +4,7 @@
 #
 # Copyright 2018 by it's authors.
 
+import collections
 import json
 
 from AccessControl import ClassSecurityInfo
@@ -364,7 +365,7 @@ class ReflexTestingRulesWidget(RecordsWidget):
                    }
         }
         """
-        relations = {}
+        relations = collections.OrderedDict()
         # Getting all the methods from the system
         pc = getToolByName(self, 'portal_catalog')
         methods = [obj.getObject() for obj in pc(
@@ -375,11 +376,13 @@ class ReflexTestingRulesWidget(RecordsWidget):
             # Get the analysis services related to each method
             an_servs_brains = bsc(
                 portal_type='AnalysisService',
+                sort_on='title',
+                sort_order='ascending',
                 getMethodUIDs={
                     "query": method.UID(),
                     "operator": "or"
                 })
-            analysiservices = {}
+            analysiservices = collections.OrderedDict()
             for analysiservice in an_servs_brains:
                 analysiservice = analysiservice.getObject()
                 # Getting the worksheet templates that could be used with the
