@@ -7,7 +7,7 @@
 from datetime import datetime
 
 from bika.lims import api
-from bika.lims.content.reflexrule import _fetch_analysis_for_local_id
+from bika.lims.catalog.analysis_catalog import CATALOG_ANALYSIS_LISTING
 from bika.lims.interfaces import IAnalysisService
 from bika.lims.interfaces.analysis import IRequestAnalysis
 from bika.lims.utils import changeWorkflowState
@@ -158,3 +158,29 @@ def get_remarks(action, output_analysis):
     remarks_output = [output_analysis.getRemarks(), remarks]
     remarks_output = filter(lambda rem: rem, remarks_output)
     return '; '.join(remarks_output)
+
+
+def _fetch_analysis_for_local_id(analysis, ans_cond):
+    """
+    This function returns an analysis when the derivative IDs conditions
+    are met.
+    :analysis: the analysis full object which we want to obtain the
+        rules for.
+    :ans_cond: the local id with the target derivative reflex rule id.
+    """
+    # Getting the first reflexed analysis from the chain
+    first_reflexed = analysis.getOriginalReflexedAnalysis()
+    if first_reflexed:
+        if api.is_uid(ans_cond) and ans_cond == first_reflexed.getServiceUID():
+            return first_reflexed
+
+        # Getting all reflexed analysis created due to this first analysis
+        query = dict(getOriginalReflexedAnalysisUID=first_reflexed.UID())
+        # From all the related reflexed analysis, return the one that matches
+        # with the local id 'ans_cond'
+        for derivative in api.search(query, CATALOG_ANALYSIS_LISTING):
+            derivative = api.get_object(derivative)
+            if derivative.getReflexRuleLocalID() == ans_cond:
+                return derivative
+
+    return None

@@ -17,4 +17,11 @@
     replacement=".content.reflexrule.doActionToAnalysis"
   />
 
+  <monkey:patch
+    description=""
+    class="bika.lims.content.reflexrule"
+    original="_fetch_analysis_for_local_id"
+    replacement=".content.reflexrule._fetch_analysis_for_local_id"
+  />
+
 </configure>

@@ -22,6 +22,8 @@ from senaite.reflex import senaiteMessageFactory as _
 from senaite.reflex.browser.fields import ReflexTestingRulesField
 from senaite.reflex.config import PRODUCT_NAME
 from senaite.reflex.interfaces import IReflexTestingScenario
+from senaite.reflex.monkeys.content.reflexrule import \
+    _fetch_analysis_for_local_id
 from zope.interface import implements
 
 schema = BikaSchema.copy() + Schema((
@@ -179,6 +181,10 @@ class ReflexTestingScenario(BaseContent):
                 # object obtained here
                 curranalysis = _fetch_analysis_for_local_id(
                     analysis, ans_cond)
+                if not curranalysis:
+                    # Condition not met!. Analysis to compare with does not
+                    # exist yet.
+                    return False
             else:
                 # if the local_id of the 'analysis' is the same as the
                 # local_id in the condition, we will use it as the current

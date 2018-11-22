@@ -882,6 +882,12 @@ jQuery(function($){
             }
             // Sort the options and add them to the selection list
             options = options.sort();
+            // Add the original analysis at the end
+            var orig_uid = $("#ReflexRules-analysisservice-0-0 option:selected").val();
+            var orig_txt = $("#ReflexRules-analysisservice-0-0 option:selected").text();
+            orig_txt += " (original)";
+            var orig_selected = orig_uid == selected ? " selected": "";
+            options.push('<option value="'+orig_uid+'"'+selected+'>'+orig_txt+'</option>');
             $(element).append(options.join(''));
         });
         // Now update analysis selectors of 'setvisibility' actions.

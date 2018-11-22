@@ -10,7 +10,6 @@ import json
 from AccessControl import ClassSecurityInfo
 from Products.Archetypes.Registry import registerWidget
 from Products.Archetypes.public import DisplayList
-from Products.CMFCore.utils import getToolByName
 from bika.lims.browser.widgets import RecordsWidget
 from bika.lims.utils import getUsers
 from senaite.reflex import senaiteMessageFactory as _
@@ -149,7 +148,6 @@ class ReflexTestingRulesWidget(RecordsWidget):
         ]
         }
         """
-        keys = raw_data.keys()
         # 'formatted_action_row' is the dict which will be added in the
         # 'value' list
         formatted_set = {}
