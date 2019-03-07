@@ -7,7 +7,7 @@
       for="senaite.reflex.interfaces.IReflexTestingScenariosFolder"
       name="folder_view"
       class=".views.ReflexTestingScenariosListing"
-      permission="bika.lims.ManageBika"
+      permission="senaite.core.permissions.ManageBika"
       layer="senaite.reflex.interfaces.ILayer" />
 
 </configure>

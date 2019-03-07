@@ -11,7 +11,7 @@
              icon_expr="string:++resource++senaite.reflex.static/img/reflextest.png"
              url_expr="string:$portal_url/bika_setup/reflextesting_scenarios"
              visible="True">
-    <permission>BIKA: Manage Bika</permission>
+    <permission>senaite.core: Manage Bika</permission>
   </configlet>
 
 </object>

@@ -112,8 +112,8 @@ def doActionToAnalysis(source_analysis, action):
     analysis.setReflexRuleLocalID(action.get('an_result_id', ''))
 
     # Setting the remarks to base analysis
-    #remarks = get_remarks(action, analysis)
-    #analysis.setRemarks(remarks)
+    remarks = get_remarks(action, analysis)
+    analysis.setRemarks(remarks)
 
     return analysis
 
